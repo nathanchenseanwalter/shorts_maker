@@ -18,9 +18,9 @@ retry:
 # for more information on how to create a Reddit application
 # and get your client_id and client_secret
 reddit_praw:
-  client_id: "your_reddit_client_id"
-  client_secret: "your_reddit_client_secret"
-  user_agent: "your_user_agent_here"
+  client_id: "6oeI-8DaYPaMS_AWdgQ8Kw"
+  client_secret: "uHBtRt6wHBq7XDRZnSPItlGwrgFRow"
+  user_agent: "Altruistic-Bid4584"
 
 # Replace with your own subreddit name
 reddit_post_getter:
@@ -35,7 +35,7 @@ audio:
   output_audio_file: "output.wav"
   transcript_json: "transcript.json"
   device: "cpu" # or "cuda"
-  model: "large-v2" # or "medium"
+  model: 'medium' # "large-v2" # or "medium"
   batch_size: 16 # or 32
   compute_type: "int8" # or "float16"
 

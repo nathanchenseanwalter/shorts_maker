@@ -7,6 +7,8 @@ from threading import Thread
 import requests
 from pydub import AudioSegment
 
+import whisper
+
 from .logging_config import get_logger
 from .retry import retry
 
@@ -82,27 +84,22 @@ def _process_chunks(
 ) -> list[str] | None:
     valid = True
 
+    model = whisper.load_model("turbo")
     def generate_audio_chunk(index: int, chunk: str) -> None:
         nonlocal valid
         if not valid:
             return
 
         try:
-            response = requests.post(
-                endpoint["url"],
-                json={"text": chunk, "voice": voice},
-                headers={
-                    "User-Agent": "com.zhiliaoapp.musically/2022600030 (Linux; U; Android 7.1.2; es_ES; SM-G988N; Build/NRD90M;tt-ok/3.12.13.1)",
-                },
-            )
+            response = 'hi'
             if response.status_code == 200:
                 audio_data[index] = response.json()[endpoint["response"]]
             else:
                 logger.info(f"response: {response}, Endpoint not valid: {endpoint['url']}")
                 valid = False
         except requests.RequestException as e:
-            print(f"Error: {e}")
-            sys.exit()
+            logger.error(f"Error with endpoint {endpoint['url']}: {e}")
+            valid = False  # Mark this endpoint as invalid instead of exiting
 
     threads = [
         Thread(target=generate_audio_chunk, args=(i, chunk)) for i, chunk in enumerate(chunks)
@@ -112,6 +109,7 @@ def _process_chunks(
     for thread in threads:
         thread.join()
 
+    exit()
     return audio_data if valid else None
 
 

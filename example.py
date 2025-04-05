@@ -4,7 +4,7 @@ import yaml
 
 from ShortsMaker import MoviepyCreateVideo, ShortsMaker
 
-setup_file = "setup.yml"
+setup_file = "example.setup.yml"
 
 with open(setup_file) as f:
     cfg = yaml.safe_load(f)
